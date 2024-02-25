@@ -13,32 +13,27 @@ from tensorflow.keras.applications.resnet_v2 import ResNet50V2 , preprocess_inpu
 from tensorflow.keras.applications.densenet import DenseNet121, preprocess_input as densenet_preprocess
 
 current_path = os.getcwd()
-dog_breeds_category_path = os.path.join(current_path, 'static/dog_breeds_category.pickle')
-predictor_model = load_model(r'static/dogbreed.h5')
+insect_train_labels_path = os.path.join(current_path, 'static/insect_train_labels.pickle')
+predictor_model = load_model(r'static/Asst3_eff.h5')
 
 print("Weights loaded")
 
-with open(dog_breeds_category_path, 'rb') as handle:
-    dog_breeds = pickle.load(handle)
+with open(insect_train_labels_path, 'rb') as handle:
+    insect_labels = pickle.load(handle)
 
 input_shape = (52,52,3)
 input_layer = Input(shape=input_shape)
 
-#first extractor ResNet50V2
-preprocessor_resnet = Lambda(resnet_preprocess)(input_layer)
-inception_resnet = ResNet50V2(weights = 'imagenet',
-                                     include_top = False,input_shape = input_shape,pooling ='avg')(preprocessor_resnet)
+#first extractor Efficient Net B0
+preprocessor_effb0 = Lambda(effb0_preprocess)(input_layer)
+effb0_model = EfficientNetB0(weights = 'imagenet',
+                              include_top = False,
+                              input_shape = input_shape,
+                              pooling ='avg')
 
-#second extractor DenseNet121
-preprocessor_densenet = Lambda(densenet_preprocess)(input_layer)
-densenet = DenseNet121(weights = 'imagenet',
-                                     include_top = False,input_shape = input_shape,pooling ='avg')(preprocessor_densenet)
+(effb0_preprocess)
 
-#concatenate the two extractors
-merge = layers.concatenate([inception_resnet,densenet])
-feature_extractor = Model(inputs = input_layer, outputs = merge)
-
-print("Models loaded")
+print("Model loaded")
 
 def predictor(img_path):
     img = load_img(img_path, target_size=(331,331))
