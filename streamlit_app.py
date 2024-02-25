@@ -18,13 +18,12 @@ def main():
     st.title('Insect image classification, amateur level')
     load_image()
 
-
 if __name__ == '__main__':
     main()
 
 
 def load_model():
-    model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=True)
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'EfficientNetB0', pretrained=True)
     model.eval()
     return model
 
