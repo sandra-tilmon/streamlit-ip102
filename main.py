@@ -20,7 +20,7 @@ def save_uploaded_file(uploaded_file):
         return 1        
 
 def main():
-    st.title('Dog Breed Classifier')
+    st.title('Insect Classifier')
 
     uploaded_file = st.file_uploader("Upload Image")
 
