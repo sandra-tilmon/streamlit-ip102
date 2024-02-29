@@ -13,7 +13,6 @@ def load_image():
     else:
         return None
 
-
 def main():
     st.title('Insect image classification, amateur level')
     load_image()
