@@ -29,7 +29,7 @@ def main():
         if save_uploaded_file(uploaded_file):
             # Display the file
             display_image = Image.open(uploaded_file)
-            display_image = display_image.resize((500, 300))
+            display_image = display_image.resize((52, 52))
             st.image(display_image)
 
             prediction = predictor(os.path.join('uploaded', uploaded_file.name))
